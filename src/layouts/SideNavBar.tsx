@@ -1,56 +1,64 @@
 // src/layouts/SideNavBar.tsx
-import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const SideNavBar: React.FC = () => {
+const navLinks = [
+  { to: 'dashboard', icon: 'dashboard', text: 'Dashboard' },
+  { to: 'user-management', icon: 'group', text: 'User Management' },
+  { to: 'system-settings', icon: 'settings', text: 'System Settings' },
+  { to: 'audit-logs', icon: 'history', text: 'Audit Logs' },
+  { to: 'reports', icon: 'summarize', text: 'Reports' },
+];
+
+const SideNavBar = () => {
   return (
-    <aside className="flex w-64 flex-col border-r border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-4">
-      <div className="mb-8 flex items-center gap-2">
-        <span className="material-symbols-outlined text-primary text-3xl">health_and_safety</span>
-        <h1 className="text-xl font-bold text-card-foreground-light dark:text-card-foreground-dark">Health Portal</h1>
+    <aside className="flex w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark">
+      <div className="flex items-center gap-3 p-6 text-primary">
+        <div className="size-8">
+          <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 className="text-xl font-bold leading-tight tracking-[-0.015em] text-slate-900 dark:text-white">HealthApp</h2>
       </div>
-      <nav className="flex flex-col gap-2">
-        <a className="flex items-center gap-3 rounded-DEFAULT bg-primary/10 px-3 py-2 text-primary" href="#">
-          <span className="material-symbols-outlined">dashboard</span>
-          <p className="text-sm font-medium">Dashboard</p>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">calendar_month</span>
-          <p className="text-sm font-medium">Appointments</p>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">mail</span>
-          <p className="text-sm font-medium">Messages</p>
-          <span className="ml-auto flex size-5 items-center justify-center rounded-full bg-warning text-xs font-bold text-white">3</span>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">science</span>
-          <p className="text-sm font-medium">Test Results</p>
-          <span className="ml-auto flex size-2 items-center justify-center rounded-full bg-success"></span>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">medication</span>
-          <p className="text-sm font-medium">Medications</p>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">receipt_long</span>
-          <p className="text-sm font-medium">Billing</p>
-        </a>
-      </nav>
-      <div className="mt-auto flex flex-col gap-2">
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">settings</span>
-          <p className="text-sm font-medium">Account Settings</p>
-        </a>
-        <a className="flex items-center gap-3 rounded-DEFAULT px-3 py-2 text-muted-light dark:text-muted-dark hover:bg-primary/10 hover:text-primary transition-colors" href="#">
-          <span className="material-symbols-outlined">logout</span>
-          <p className="text-sm font-medium">Logout</p>
-        </a>
-        <div className="mt-4 border-t border-border-light dark:border-border-dark pt-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-6oz1YSMZdHBrOrT6Q5arb0is0TB2xeBXSVHsUtwm5qGwLx3zt3KhDFvJs2pCfpRr9Pc5DLzKP208vigppXmlwsO4D9YCbW76vcdVlj8uH-XMdeI84T0zjyfGqwPC-B6YFUQ1ytUl26omxy_KiBcV0GuWDj0gfru2jfjWKsJJqS28GF0LKcP_Nj_2c3jy57-_nyBOqW78iAV6qZp5YdN2Vw_DjSg4KYT8d4gvx5Q5J08mZIJFau6UtrTdlZQKbRCdBSmJgJAalSY")'}}></div>
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <div className="flex flex-col gap-2">
+          {navLinks.map(({ to, icon, text }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 ${
+                  isActive ? 'bg-primary/20 text-primary active' : ''
+                }`
+              }
+            >
+              <span className="material-symbols-outlined text-2xl">{icon}</span>
+              <p className="text-sm font-medium leading-normal">{text}</p>
+            </NavLink>
+          ))}
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1 border-t border-slate-200 dark:border-slate-800 pt-4">
+            <NavLink
+              to="account-settings"
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 ${
+                  isActive ? 'bg-primary/20 text-primary active' : ''
+                }`
+              }
+            >
+              <span className="material-symbols-outlined text-2xl">account_circle</span>
+              <p className="text-sm font-medium leading-normal">Account Settings</p>
+            </NavLink>
+          </div>
+          <div className="flex gap-3">
+            <div
+              className="aspect-square size-10 rounded-full bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsZLEnOKTO3R7Rd_bU-5cH-u11qg3eTjVZY71g3YWRYHrGZYyuUrZ1gW8cXnIvyjSR6k9cJbekSClkmXbWhHeIjZScdq6hQmFxxf1_sHXhhC-WUyS4QTBnBLvp4z4UdmZ_dKKPFzpVzTst6kSvhR75x9l4x46xiflbFpX2Xdtu9MmLQr0HXoEd4zKtkIDerjjCDGq7ln8x_DiJk_FX-CP2vpH5u1B7HbFe7jYdaC1DzN1eAW4evyEt2Wv66Q3ITzLHNfSLhpGaDzc")' }}
+            ></div>
             <div className="flex flex-col">
-              <p className="text-card-foreground-light dark:text-card-foreground-dark text-sm font-medium leading-normal">Sarah Johnson</p>
-              <p className="text-muted-light dark:text-muted-dark text-xs font-normal leading-normal">sarah.j@email.com</p>
+              <h1 className="text-base font-medium leading-normal text-slate-900 dark:text-white">Dr. Evelyn Reed</h1>
+              <p className="text-sm font-normal leading-normal text-slate-500 dark:text-slate-400">Administrator</p>
             </div>
           </div>
         </div>

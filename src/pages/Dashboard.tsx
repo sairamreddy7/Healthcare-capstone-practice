@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
   return (
     <main className="flex-1 overflow-y-auto p-8">
       <div className="mx-auto max-w-7xl">
-        <PageHeading />
+        <PageHeading title="Welcome back, Evelyn!" description="Here is a summary of the system's current status." />
         <NotificationBanner />
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
           <UpcomingAppointments />

@@ -1,14 +1,16 @@
 // src/components/PageHeading.tsx
-import React from 'react';
+interface PageHeadingProps {
+  title: string;
+  description: string;
+}
 
-const PageHeading: React.FC = () => {
+const PageHeading = ({ title, description }: PageHeadingProps) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-      <h1 className="text-foreground-light dark:text-foreground-dark text-3xl font-bold leading-tight tracking-tight">Good Morning, Sarah</h1>
-      <button className="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-DEFAULT h-10 px-4 bg-primary text-white text-sm font-medium leading-normal shadow-sm hover:bg-primary/90 transition-colors">
-        <span className="material-symbols-outlined text-base">add</span>
-        <span className="truncate">Schedule New Appointment</span>
-      </button>
+    <div className="flex flex-wrap justify-between gap-3 pb-6">
+      <div className="flex min-w-72 flex-col gap-2">
+        <p className="text-3xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">{title}</p>
+        <p className="text-base font-normal leading-normal text-slate-500 dark:text-slate-400">{description}</p>
+      </div>
     </div>
   );
 };

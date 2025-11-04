@@ -1,15 +1,33 @@
 // src/App.tsx
-import React from 'react';
-import SideNavBar from './layouts/SideNavBar';
-import Dashboard from './pages/Dashboard';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-const App: React.FC = () => {
+// Layouts
+import AdminLayout from './layouts/AdminLayout';
+import ClinicianLayout from './layouts/ClinicianLayout';
+import PatientLayout from './layouts/PatientLayout';
+
+// Pages
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+
+function App() {
   return (
-    <div className="flex min-h-screen w-full bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark">
-      <SideNavBar />
-      <Dashboard />
-    </div>
+    <Router>
+      <Routes>
+        {/* Authentication Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+
+        {/* Dashboard Routes */}
+        <Route path="/admin/*" element={<AdminLayout />} />
+        <Route path="/clinician/*" element={<ClinicianLayout />} />
+        <Route path="/patient/*" element={<PatientLayout />} />
+
+        {/* Default Redirect */}
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

@@ -1,73 +1,190 @@
-# React + TypeScript + Vite
+# Healthcare Capstone Practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive healthcare management system built with React, TypeScript, and Vite. This application provides role-based dashboards for administrators, clinicians, and patients to manage healthcare operations efficiently.
 
-Currently, two official plugins are available:
+## 📋 Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [Available Scripts](#available-scripts)
+- [Project Structure](#project-structure)
+- [User Roles](#user-roles)
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Role-Based Access Control**: Separate dashboards for Admin, Clinician, and Patient roles
+- **Authentication System**: Login and signup functionality
+- **Patient Management**: Manage patient records, appointments, and medical history
+- **User Management**: Admin capabilities for managing system users
+- **Appointment Scheduling**: Book and manage medical appointments
+- **Billing System**: Track and manage patient billing information
+- **Messaging System**: Communication between users
+- **Reports & Analytics**: System-wide reporting and analytics
+- **Audit Logs**: Track system activities for compliance
+- **Responsive Design**: Mobile-friendly interface using Tailwind CSS
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend Framework**: React 19.1.1
+- **Language**: TypeScript
+- **Build Tool**: Vite 7.1.7
+- **Routing**: React Router DOM 7.9.5
+- **State Management**: Zustand 5.0.8
+- **Styling**: Tailwind CSS 4.1.16
+- **API Mocking**: Mock Service Worker (MSW) 2.12.1
+- **Linting**: ESLint 9.36.0
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Before you begin, ensure you have the following installed on your system:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Node.js**: Version 16.x or higher (recommended: 18.x or 20.x)
+- **npm**: Version 7.x or higher (comes with Node.js)
+
+To check your versions, run:
+
+```bash
+node --version
+npm --version
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone the repository**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/sairamreddy7/Healthcare-capstone-practice.git
+cd Healthcare-capstone-practice
 ```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+This will install all the required dependencies listed in `package.json`.
+
+## 🏃 Running the Project
+
+### Development Mode
+
+To run the application in development mode with hot module replacement (HMR):
+
+```bash
+npm run dev
+```
+
+The application will start on `http://localhost:5173` (or the next available port).
+
+**Note**: The application uses Mock Service Worker (MSW) in development mode to simulate API responses. This means you don't need a backend server to run the application locally.
+
+### Production Build
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+This command:
+1. Runs TypeScript compiler to check for type errors
+2. Builds the application using Vite
+3. Outputs optimized files to the `dist` directory
+
+### Preview Production Build
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+This will serve the production build on `http://localhost:4173`.
+
+## 📜 Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Starts the development server with HMR |
+| `npm run build` | Builds the app for production |
+| `npm run lint` | Runs ESLint to check code quality |
+| `npm run preview` | Previews the production build locally |
+
+## 📁 Project Structure
+
+```
+Healthcare-capstone-practice/
+├── public/                  # Static assets
+│   └── mockServiceWorker.js # MSW service worker
+├── src/
+│   ├── assets/             # Images, icons, and other assets
+│   ├── components/         # Reusable React components
+│   ├── layouts/            # Layout components (Admin, Clinician, Patient)
+│   ├── mocks/              # MSW mock API handlers
+│   ├── pages/              # Page components
+│   ├── stores/             # Zustand state management stores
+│   ├── App.tsx             # Main application component
+│   ├── main.tsx            # Application entry point
+│   └── index.css           # Global styles
+├── index.html              # HTML template
+├── package.json            # Project dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+├── vite.config.ts          # Vite configuration
+└── tailwind.config.js      # Tailwind CSS configuration
+```
+
+## 👥 User Roles
+
+The application supports three main user roles:
+
+### 1. Admin
+- Access to admin dashboard at `/admin/dashboard`
+- User management capabilities
+- System settings and configuration
+- Audit logs and reports
+- Full system oversight
+
+### 2. Clinician
+- Access to clinician dashboard at `/clinician/dashboard`
+- Patient records management
+- Appointment scheduling
+- Medical documentation
+- Patient communication
+
+### 3. Patient
+- Access to patient dashboard at `/patient/dashboard`
+- View personal health records
+- Schedule appointments
+- View billing information
+- Communicate with healthcare providers
+- Access test results
+
+## 🔐 Authentication
+
+The application includes authentication pages:
+- **Login**: `/login`
+- **Sign Up**: `/signup`
+
+All dashboard routes are protected and require authentication. Unauthenticated users are redirected to the login page.
+
+## 🤝 Contributing
+
+This is a capstone practice project. If you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is part of a capstone practice exercise.
+
+---
+
+**Happy Coding! 🎉**

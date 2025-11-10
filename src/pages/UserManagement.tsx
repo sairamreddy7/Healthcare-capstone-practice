@@ -1,9 +1,17 @@
 // src/pages/UserManagement.tsx
+import { useEffect } from 'react';
 import PageHeading from '../components/PageHeading';
 import UserTable from '../components/UserTable';
 import Pagination from '../components/Pagination';
+import useUserManagementStore from '../stores/userManagementStore';
 
 const UserManagement = () => {
+  const { users, fetchUsers } = useUserManagementStore();
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
   return (
     <>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -22,7 +30,7 @@ const UserManagement = () => {
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <UserTable />
+            <UserTable users={users} />
           </div>
         </div>
       </div>

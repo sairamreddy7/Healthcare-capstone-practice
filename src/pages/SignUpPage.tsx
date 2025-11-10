@@ -1,5 +1,34 @@
 // src/pages/SignUpPage.tsx
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const SignUpPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: '',
+  });
+  const navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
       <div className="layout-container flex h-full grow flex-col">
@@ -20,14 +49,15 @@ const SignUpPage = () => {
                 <p className="text-[#111618] dark:text-white text-3xl sm:text-4xl font-black leading-tight tracking-[-0.033em] text-center">Create Your Account</p>
                 <p className="text-slate-600 dark:text-slate-400 text-base text-center">Join our secure healthcare portal to manage your health with ease.</p>
               </div>
-              <form className="flex flex-col gap-6 w-full">
+              <form className="flex flex-col gap-6 w-full" onSubmit={handleSubmit}>
                 <div className="flex flex-col sm:flex-row w-full flex-wrap items-end gap-4">
                   <label className="flex flex-col min-w-40 flex-1">
                     <p className="text-[#111618] dark:text-slate-300 text-base font-medium leading-normal pb-2">First Name</p>
                     <input
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe2e6] dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-14 placeholder:text-[#617c89] p-[15px] text-base font-normal leading-normal"
                       placeholder="Enter your first name"
-                      value=""
+                      name="firstName"
+                      onChange={handleChange}
                     />
                   </label>
                   <label className="flex flex-col min-w-40 flex-1">
@@ -35,7 +65,8 @@ const SignUpPage = () => {
                     <input
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe2e6] dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-14 placeholder:text-[#617c89] p-[15px] text-base font-normal leading-normal"
                       placeholder="Enter your last name"
-                      value=""
+                      name="lastName"
+                      onChange={handleChange}
                     />
                   </label>
                 </div>
@@ -45,7 +76,8 @@ const SignUpPage = () => {
                     className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe2e6] dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-14 placeholder:text-[#617c89] p-[15px] text-base font-normal leading-normal"
                     placeholder="Enter your email address"
                     type="email"
-                    value=""
+                    name="email"
+                    onChange={handleChange}
                   />
                 </label>
                 <label className="flex flex-col w-full">
@@ -55,7 +87,8 @@ const SignUpPage = () => {
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe2e6] dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-14 placeholder:text-[#617c89] p-[15px] text-base font-normal leading-normal"
                       placeholder="Create a password"
                       type="password"
-                      value=""
+                      name="password"
+                      onChange={handleChange}
                     />
                     <button className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 dark:text-slate-400 hover:text-primary" type="button">
                       <span className="material-symbols-outlined">visibility</span>
@@ -70,7 +103,8 @@ const SignUpPage = () => {
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dbe2e6] dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-14 placeholder:text-[#617c89] p-[15px] text-base font-normal leading-normal"
                       placeholder="Confirm your password"
                       type="password"
-                      value=""
+                      name="confirmPassword"
+                      onChange={handleChange}
                     />
                     <button className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 dark:text-slate-400 hover:text-primary" type="button">
                       <span className="material-symbols-outlined">visibility_off</span>
@@ -81,11 +115,11 @@ const SignUpPage = () => {
                   <p className="text-[#111618] dark:text-slate-300 text-base font-medium leading-normal">I am a...</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:border-slate-700 dark:has-[:checked]:bg-primary/20 dark:has-[:checked]:border-primary transition-colors duration-150">
-                      <input className="form-radio text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark" name="role" type="radio" value="patient" />
+                      <input className="form-radio text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark" name="role" type="radio" value="patient" onChange={handleChange} />
                       <span className="text-base font-medium text-[#111618] dark:text-slate-300">Patient</span>
                     </label>
                     <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:border-slate-700 dark:has-[:checked]:bg-primary/20 dark:has-[:checked]:border-primary transition-colors duration-150">
-                      <input className="form-radio text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark" name="role" type="radio" value="clinician" />
+                      <input className="form-radio text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark" name="role" type="radio" value="clinician" onChange={handleChange} />
                       <span className="text-base font-medium text-[#111618] dark:text-slate-300">Clinician</span>
                     </label>
                   </div>

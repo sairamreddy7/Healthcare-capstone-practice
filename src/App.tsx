@@ -9,6 +9,7 @@ import PatientLayout from './layouts/PatientLayout';
 // Pages
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -18,10 +19,12 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
 
-        {/* Dashboard Routes */}
-        <Route path="/admin/*" element={<AdminLayout />} />
-        <Route path="/clinician/*" element={<ClinicianLayout />} />
-        <Route path="/patient/*" element={<PatientLayout />} />
+        {/* Protected Dashboard Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin/*" element={<AdminLayout />} />
+          <Route path="/clinician/*" element={<ClinicianLayout />} />
+          <Route path="/patient/*" element={<PatientLayout />} />
+        </Route>
 
         {/* Default Redirect */}
         <Route path="*" element={<Navigate to="/login" />} />

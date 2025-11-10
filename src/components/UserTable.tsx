@@ -1,48 +1,19 @@
 // src/components/UserTable.tsx
-const users = [
-  {
-    name: 'Liam Johnson',
-    email: 'liam.johnson@healthapp.com',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCiwLXp0KZ55Fqbhne-1n-d_bqqLAuXMeU9iqMBkrmPc3zFjwPZX4O2WIYM3bd3yLpxJz86wjy_SUEESDLT-F21o8VHcn_8aRrRcIITVV7Rdo9vUtDJx1C7wUIg3IOTL6QPneQp8nbHrmsO0tOwV9ESzbIHC9Sf8almO0iOR-uJMkbVBni8hhX1XbqWiUFhzfxSDf-ypARoHYDfVIf_f-EXFDfsK7JfM3v1Am7k51yMl05wUiuyOklAlrKW92BIKb-BgxwbYtgkNAU',
-    status: 'Active',
-    role: 'Patient',
-    lastLogin: '2024-05-22 10:15 AM',
-  },
-  {
-    name: 'Dr. Olivia Chen',
-    email: 'olivia.chen@healthapp.com',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAr8CDo85ZsIU9sVlbhVcnWO0lsf1lmob2Ykeorw_2xfhcLm1TW5hReE-Fc6n5zL08xPhiwxcg_yxXrqVMBQU9MaLmXMDy0tybdyMgap_knjpLIyZ4RfZzIntuSH2XT1e1epiQPkMQAYAXH8-kYf4MSjUg4MgRojUoHqimYLvbZ92Qd0XgRsIneVxs22lwDxbJ1B33sccUQYF7yQLGPhq_oWg0jDll4oeeY6OJlFaBtAsCnWVOtskRI_J0oGLLfnUPkPJDd1hBt8HI',
-    status: 'Active',
-    role: 'Clinician',
-    lastLogin: '2024-05-22 09:48 AM',
-  },
-  {
-    name: 'Benjamin Carter',
-    email: 'ben.carter@healthapp.com',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAXCtm46IAdZwS6tQSPxSMgoT8QbX6E8k1qQBcqV_2rEuEEaD20QnP4kuX4GOMOelW1sQoVoaByQhZwLrl8xtcm2rg5PW2gBFYmm9o5j7ET1xVffs90Ep5ZQ-4eDljfy9MCecQO1_Vh__QHdPqEUAND6x8j38PvOc_99CWSYWTE4TcJo_o3YdexCp2Q4p6QX-iW6FhtQCS8blbeu3x8IfX-4bmoyMgW-VzpsUm0pE9UJ99cFHXmK12o4XukjfQV096J6dy67pvsPik',
-    status: 'Inactive',
-    role: 'Patient',
-    lastLogin: '2024-03-15 02:30 PM',
-  },
-  {
-    name: 'Chloe Garcia',
-    email: 'chloe.garcia@healthapp.com',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAyqrOChutUSFLAJoDDfb-WcmLsQDWxGFdPiXlSlonZRRun8U0IebGRBTwi0r1YYf6q02O1T1UGSN3-BEtFtu6mlH1vVjc4QySVNPFY0s4pAgj70wIwSy9CoRMzQwyBH8oVECLyI_sxQXWtrndVqb9VMdo-MKM5OBmWR5f5a7AI92CRnpVd5VJ_VnzJGxCIhlw7HTYKLxLj06eVHIPLw37C2gwGGfZNJkkfxdjljUS8v6AEwH8GqvIICJQetEAoVSBTZSV7eYqWVPo',
-    status: 'Active',
-    role: 'Patient',
-    lastLogin: '2024-05-21 07:12 PM',
-  },
-  {
-    name: 'Dr. Ethan Miller',
-    email: 'ethan.miller@healthapp.com',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwU4WaED17L8_dQExxN4e1sAAHGsaCEHAk82y2M8F1jWnBllhV2lAQ7vwhRQ5lMOMoMIZxi678STJbgF_wBKWdoZqvN-wfLDNETjKFPTPldMNszb_ywiDk3BbkACkoHni0W--R4GVhOSiO1c4W75RTWznbz-diIqITTCxQKiN4F0q2SFpTnFsWReqnZcC1tQuaU2Ao9_OGhSF7PmOB78YeqNecV8ormtnjoeCp8mjn5S_YLn3TONTZ2N5lc8Gsm7PwuFh_aRzErrE',
-    status: 'Pending',
-    role: 'Clinician',
-    lastLogin: '-',
-  },
-];
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  status: 'Active' | 'Inactive' | 'Pending';
+  role: 'Patient' | 'Clinician' | 'Admin';
+  lastLogin: string;
+}
 
-const UserTable = () => {
+interface UserTableProps {
+  users: User[];
+}
+
+const UserTable = ({ users }: UserTableProps) => {
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
       <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800">

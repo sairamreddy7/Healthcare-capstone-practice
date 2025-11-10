@@ -1,8 +1,16 @@
 // src/pages/PatientList.tsx
+import { useEffect } from 'react';
 import PageHeading from '../components/PageHeading';
 import PatientTable from '../components/PatientTable';
+import usePatientListStore from '../stores/patientListStore';
 
 const PatientList = () => {
+  const { patients, fetchPatients } = usePatientListStore();
+
+  useEffect(() => {
+    fetchPatients();
+  }, [fetchPatients]);
+
   return (
     <>
       <PageHeading title="Patient List" description="Manage your patients, view records, and schedule appointments." />
@@ -17,7 +25,7 @@ const PatientList = () => {
         </div>
         <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Showing 1-10 of 124 patients</p>
       </div>
-      <PatientTable />
+      <PatientTable patients={patients} />
     </>
   );
 };

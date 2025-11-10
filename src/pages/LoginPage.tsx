@@ -1,5 +1,28 @@
 // src/pages/LoginPage.tsx
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuthStore from '../stores/authStore';
+
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+      const { role } = await response.json();
+      login(role);
+      navigate(`/${role}/dashboard`);
+    }
+  };
+
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
       <div className="layout-container flex h-full grow flex-col">
@@ -19,7 +42,7 @@ const LoginPage = () => {
                   <main>
                     <h1 className="text-charcoal dark:text-white tracking-tight text-[32px] font-bold leading-tight text-left pb-3 pt-6">Secure Portal Login</h1>
                     <p className="text-gray-500 dark:text-gray-400 mb-8">Welcome back. Please enter your credentials.</p>
-                    <form className="flex flex-col gap-4">
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                       <div className="flex max-w-full flex-wrap items-end gap-4">
                         <label className="flex flex-col w-full flex-1">
                           <p className="text-charcoal dark:text-gray-200 text-base font-medium leading-normal pb-2">Username or Email</p>
@@ -27,7 +50,8 @@ const LoginPage = () => {
                             className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-charcoal dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-background-light dark:bg-slate-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal"
                             placeholder="Enter your email address"
                             type="email"
-                            value=""
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                         </label>
                       </div>
@@ -42,7 +66,8 @@ const LoginPage = () => {
                               className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-charcoal dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-gray-300 dark:border-gray-600 bg-background-light dark:bg-slate-800 focus:border-primary h-14 placeholder:text-gray-400 dark:placeholder:text-gray-500 p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"
                               placeholder="Enter your password"
                               type="password"
-                              value=""
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
                             />
                             <button
                               aria-label="Toggle password visibility"

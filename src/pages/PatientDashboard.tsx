@@ -1,11 +1,19 @@
 // src/pages/PatientDashboard.tsx
+import { useEffect } from 'react';
 import AppointmentsCard from '../components/AppointmentsCard';
 import MessagesCard from '../components/MessagesCard';
 import TestResultsCard from '../components/TestResultsCard';
 import MedicationsCard from '../components/MedicationsCard';
 import BillingsCard from '../components/BillingsCard';
+import usePatientDashboardStore from '../stores/patientDashboardStore';
 
 const PatientDashboard = () => {
+  const { fetchDashboardData } = usePatientDashboardStore();
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
+
   return (
     <div>
       <div className="mb-8">
